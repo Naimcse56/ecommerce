@@ -38,62 +38,44 @@
 						</div>
 					</div><!--/product-details-->
 
-
+<!--Count of review-->
+<?php 
+	$count = DB::table("tbl_products")
+			->join('tbl_comment','tbl_products.product_id','=','tbl_comment.product_id')
+            ->where('tbl_products.product_id', $product_by_details->product_id)
+            ->select("tbl_comment.product_id",DB::raw('count(*) as numc'))
+            ->groupBy("tbl_comment.product_id");
+?>
+<!--End Count of review-->
+             
+              
 					<div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								<li><a href="#details" data-toggle="tab">Details</a></li>
-								<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
-								<li><a href="#tag" data-toggle="tab">Tag</a></li>
-								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+								<li style="float: left;" class="active"><a href="#details" data-toggle="tab">Details</a></li>
+								@foreach($count->get() as $k)
+								<li style="float: right;"><a href="#reviews" data-toggle="tab">Reviews: ({{$k->numc}})</a></li>@endforeach
 							</ul>
 						</div>
 						<div class="tab-content">
-							<div class="tab-pane fade" id="details">
+							<div class="tab-pane fade active in" id="details">
 								<p>{{$product_by_details->product_long_description}}</p>
 							</div>
-							<div class="tab-pane fade" id="companyprofile" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="{{URL::to('frontend/images/home/gallery1.jpg')}}" alt="" />
-												<h2>$56</h2>
-												<p>Easy Polo Black Edition</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="tab-pane fade" id="tag" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="{{URL::to('frontend/images/home/gallery1.jpg')}}" alt="" />
-												<h2>$56</h2>
-												<p>Easy Polo Black Edition</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+
+
 							<?php			
-							$product_comment = DB::table('tbl_products')
-                            ->join('tbl_comment','tbl_products.product_id','=','tbl_comment.product_id')
-                            ->select('tbl_products.*','tbl_comment.product_comment','tbl_comment.com_name','tbl_comment.created_at')
-                            ->where('tbl_products.product_id', $product_by_details->product_id)
-                            ->paginate(7);
+								$product_comment = DB::table('tbl_products')
+                            		->join('tbl_comment','tbl_products.product_id','=','tbl_comment.product_id')
+                            		->select('tbl_products.*','tbl_comment.product_comment','tbl_comment.com_name','tbl_comment.created_at')
+                            		->where('tbl_products.product_id', $product_by_details->product_id)
+                            		->paginate(7);
                             ?>
-							<div class="tab-pane fade active in" id="reviews" >
+							<div class="tab-pane fade" id="reviews" >
 								<div class="col-sm-12">
 								@foreach($product_comment as $product_details)
 									<ul>
 										<li><a href=""><i class="fa fa-user"></i>{{$product_details->com_name}}</a></li>
-										<li><a href=""><i class="fa fa-clock-o"></i>{{$product_details->created_at}}</a></li>
+										<li style="float: right;"><a href=""><i class="fa fa-clock-o"></i>{{$product_details->created_at}}</a></li>
 										<p><i class="fa fa-fighter-jet"></i> {{$product_details->product_comment}}</p>
 									</ul>
 								@endforeach	
@@ -109,8 +91,6 @@
 											<input type="hidden" name="product_id" value="{{$product_by_details->product_id}}" required /> 
 											<textarea name="product_comment" placeholder="Your Comment" required=""></textarea>
 										</span>
-											
-										<b>Rating: </b> <img src="{{URL::to('frontend/images/product-details/rating.png')}}" alt="" />
 										<button type="submit" class="btn btn-default pull-right">
 											Submit
 										</button>
