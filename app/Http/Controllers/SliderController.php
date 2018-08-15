@@ -11,7 +11,7 @@ session_start();
 class SliderController extends Controller
 {
     public function index(){
-        //$this->AdminAuthCheck();
+        $this->AdminAuthCheck();
     	return view('admin.add_slider');
     }
     public function save_slider(Request $req){
@@ -39,7 +39,7 @@ class SliderController extends Controller
     }
 
     public function all_slider(){
-        //$this->AdminAuthCheck();
+        $this->AdminAuthCheck();
     	$all_slider_info = DB::table('tbl_slider')->get();
     							//echo "<pre>";
     							//print_r($all_slider_info);
@@ -73,5 +73,14 @@ class SliderController extends Controller
 
     	Session::put('message', 'Slider deleted successfully !!');
     	return Redirect::to('/allSlider');
+    }
+
+    public function AdminAuthCheck(){
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return view('admin.dashboard');
+        }else{
+            return Redirect::to('/backend')->send();
+        }
     }
 }

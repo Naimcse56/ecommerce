@@ -60,6 +60,25 @@
 								</div>
 							  </div> 
 							  <div class="control-group">
+								<label class="control-label" for="selectError3">Product Sub Category</label>
+								<div class="controls">
+								  <select id="selectError3" name="id">
+								  	<option>Select One</option>
+
+								  	<?php
+                            			$all_published_subcategory = DB::table('tbl_sub_category')
+                                			->where('publication_status', 1)
+                                			->get();
+                        				foreach($all_published_subcategory as $v_category){?>
+
+									<option value="{{$v_category->id}}">{{$v_category->sub_category_name}}</option>
+
+									<?php }?>
+
+								  </select>
+								</div>
+							  </div> 
+							  <div class="control-group">
 								<label class="control-label" for="selectError3">Manufacture Category</label>
 								<div class="controls">
 								  <select id="selectError3" name="manufacture_id">

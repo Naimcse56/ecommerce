@@ -4,7 +4,15 @@
 
 <h2 class="title text-center">Features Items</h2>
 
-                    <?php foreach($all_published_product as $v_published_product){?>
+                    <?php
+                    $all_published_product = DB::table('tbl_products')
+                            ->join('tbl_category','tbl_products.category_id', '=', 'tbl_category.category_id')
+                            ->join('tbl_manufacture','tbl_products.manufacture_id', '=', 'tbl_manufacture.manufacture_id')
+                            ->select('tbl_products.*','tbl_category.category_name','tbl_manufacture.manufacture_name')
+                            ->where ('tbl_products.publication_status',1)
+                            ->paginate(6);
+                    
+                        foreach($all_published_product as $v_published_product){?>
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
@@ -34,6 +42,7 @@
                         <?php }?>
                         
                     </div><!--features_items-->
+                    {{$all_published_product->links()}}
                     
                     
 @endsection

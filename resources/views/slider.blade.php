@@ -9,12 +9,9 @@
   <section id="slider"><!--slider-->
     <div class="container">
       <div class="row"> 
-                <div class="col-sm-12">
+                <div class="col-md-12">
                 <div id="carousel-example-generic" class="carousel slide " data-ride="carousel">
-                
-
                 <div class="col-sm-8">
-                <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                     @foreach( $all_published_slider as $v_slider )
                         <div class="item {{ $loop->first ? ' active' : '' }}" >

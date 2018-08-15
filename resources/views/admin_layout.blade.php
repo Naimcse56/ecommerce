@@ -21,7 +21,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
 	<!-- end: CSS -->
 
-	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="{{URL::to('admin/img/favicon.ico')}}">
 	<!-- end: Favicon -->
 	
 		
@@ -76,6 +76,10 @@
 						<li><a href="{{URL::to('/allCategory')}}"><i class="icon-envelope"></i><span class="hidden-tablet"> All Category</span></a></li>
 
 						<li><a href="{{URL::to('/addCategory')}}"><i class="icon-tasks"></i><span class="hidden-tablet"> Add Category</span></a></li>
+
+						<li><a href="{{URL::to('/allSubCategory')}}"><i class="icon-envelope"></i><span class="hidden-tablet"> All Sub Category</span></a></li>
+
+						<li><a href="{{URL::to('/addSubCategory')}}"><i class="icon-tasks"></i><span class="hidden-tablet"> Add Sub Category</span></a></li>
 
 						<li><a href="{{URL::to('/allBrand')}}"><i class="icon-eye-open"></i><span class="hidden-tablet"> All Brands</span></a></li>
 
@@ -158,7 +162,7 @@
 		<script src="{{asset('admin/js/jquery.dataTables.min.js')}}"></script>
 		<script src="{{asset('admin/js/excanvas.js')}}"></script>
 		<script src="{{asset('admin/js/jquery.flot.js')}}"></script>
-		<script src="{{asset('admin/j')}}{{asset('admin/s/jquery.flot.pie.js')}}"></script>
+		<script src="{{asset('admin/js/jquery.flot.pie.js')}}"></script>
 		<script src="{{asset('admin/js/jquery.flot.stack.js')}}"></script>
 		<script src="{{asset('admin/js/jquery.flot.resize.min.js')}}"></script>
 		<script src="{{asset('admin/js/jquery.chosen.min.js')}}"></script>
@@ -177,6 +181,9 @@
 		<script src="{{asset('admin/js/counter.js')}}"></script>
 		<script src="{{asset('admin/js/retina.js')}}"></script>
 		<script src="{{asset('admin/js/custom.js')}}"></script>
+
+	<!-- end: JavaScript-->
+	
 	<!-- bootbox cdn-->
 		<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js')}}"></script>
 

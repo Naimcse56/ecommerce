@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/addcomment','HomeController@addcomment');
+
+
+
 //Front-End Route------------------------------------
 Route::get('/', 'HomeController@index');
 
@@ -53,6 +58,17 @@ Route::post('/update_category/{category_id}','CategoryController@update_category
 Route::get('/delete_category/{category_id}','CategoryController@delete_category');
 Route::get('/unactive_category/{category_id}','CategoryController@unactive_category');
 Route::get('/active_category/{category_id}','CategoryController@active_category');
+
+//Sub Category Related Route-----------------------------
+Route::get('/addSubCategory','SubCatController@index');
+Route::get('/allSubCategory','SubCatController@all_sub_category');
+Route::post('/save-Sub_Category','SubCatController@save_sub_category');
+Route::get('/delete_subCat/{id}','SubCatController@delete_subCat');
+Route::get('/unactive_subCat/{id}','SubCatController@unactive_subCat');
+Route::get('/active_subCat/{id}','SubCatController@active_subCat');
+
+Route::get('/showproduct_by_subcategory/{id}', 'HomeController@showproduct_by_subcategory');
+
 
 //Brand Related Route-----------------------------
 Route::get('/addBrand','BrandController@index');

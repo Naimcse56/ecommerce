@@ -18,6 +18,7 @@ class ProductController extends Controller
     	$data = array();
     	$data['product_name'] = $req->product_name;
     	$data['category_id'] = $req->category_id;
+        $data['id'] = $req->id;             //sub category id
     	$data['manufacture_id'] = $req->manufacture_id;
     	$data['product_short_description'] = $req->product_short_description;
     	$data['product_long_description'] = $req->product_long_description;
@@ -48,11 +49,13 @@ class ProductController extends Controller
 
     public function all_product(){
         $this->AdminAuthCheck();
-    	$all_product_info = DB::table('tbl_products')
-    						->join('tbl_category','tbl_products.category_id', '=', 'tbl_category.category_id')
-    						->join('tbl_manufacture','tbl_products.manufacture_id', '=', 'tbl_manufacture.manufacture_id')
-    						->select('tbl_products.*','tbl_category.category_name','tbl_manufacture.manufacture_name')
-    						->get();
+        $all_product_info = DB::table('tbl_products')
+        					->join('tbl_category','tbl_products.category_id', '=', 'tbl_category.category_id')
+        					->join('tbl_manufacture','tbl_products.manufacture_id', '=', 'tbl_manufacture.manufacture_id')
+                            ->join('tbl_sub_category','tbl_products.id', '=', 'tbl_sub_category.id')
+        					->select('tbl_products.*','tbl_category.category_name','tbl_manufacture.manufacture_name', 'tbl_sub_category.sub_category_name')
+        					->get();
+
     							//echo "<pre>";
     							//print_r($all_product_info);
     							//echo "</pre>";

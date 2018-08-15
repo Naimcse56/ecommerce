@@ -135,7 +135,7 @@ class CheckoutController extends Controller
 
      public function manage_order()
     {
-     
+     $this->AdminAuthCheck();
       $all_order_info=DB::table('tbl_order')
                      ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
                      ->select('tbl_order.*','tbl_customer.customer_name')
@@ -147,6 +147,7 @@ class CheckoutController extends Controller
     }
   public function view_order($order_id)
   {
+    $this->AdminAuthCheck();
       $order_by_id=DB::table('tbl_order')
               ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
               ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
@@ -173,5 +174,15 @@ class CheckoutController extends Controller
       DB::table('tbl_order')->where('order_id',$order_id)
                   ->update(['order_status' => 1]);
       return Redirect::to('/manage-order');
+    }
+
+
+    public function AdminAuthCheck(){
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return view('admin.dashboard');
+        }else{
+            return Redirect::to('/backend')->send();
+        }
     }
 }
